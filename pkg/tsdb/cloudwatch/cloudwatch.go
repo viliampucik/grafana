@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"regexp"
 	"time"
 
@@ -22,6 +23,7 @@ import (
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/datasource"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/instancemgmt"
+	"github.com/grafana/grafana-plugin-sdk-go/backend/resource/httpadapter"
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 	"github.com/grafana/grafana/pkg/components/simplejson"
 	"github.com/grafana/grafana/pkg/infra/log"
@@ -59,8 +61,11 @@ func ProvideService(cfg *setting.Cfg, logsService *LogsService, registrar plugin
 	plog.Debug("initing")
 
 	executor := newExecutor(logsService, datasource.NewInstanceManager(NewInstanceSettings()), cfg, awsds.NewSessionCache())
+	mux := http.NewServeMux()
+	executor.registerRoutes(mux)
 	factory := coreplugin.New(backend.ServeOpts{
-		QueryDataHandler: executor,
+		QueryDataHandler:    executor,
+		CallResourceHandler: httpadapter.New(mux),
 	})
 
 	if err := registrar.LoadAndRegister("cloudwatch", factory); err != nil {
@@ -281,8 +286,6 @@ func (e *cloudWatchExecutor) QueryData(ctx context.Context, req *backend.QueryDa
 
 	var result *backend.QueryDataResponse
 	switch queryType {
-	case "metricFindQuery":
-		result, err = e.executeMetricFindQuery(ctx, model, q, req.PluginContext)
 	case "annotationQuery":
 		result, err = e.executeAnnotationQuery(ctx, model, q, req.PluginContext)
 	case "logAction":
