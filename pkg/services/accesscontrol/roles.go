@@ -65,8 +65,11 @@ var (
 		DisplayName: "Organization user writer",
 		Description: "Within a single organization, add a user, invite a user, read information about a user and their role, remove a user from that organization, or change the role of a user.",
 		Group:       "User administration (organizational)",
-		Version:     3,
+		Version:     4,
 		Permissions: ConcatPermissions(orgUsersReaderRole.Permissions, []Permission{
+			{
+				Action: ActionOrgUserInvite,
+			},
 			{
 				Action: ActionOrgUsersAdd,
 				Scope:  ScopeUsersAll,
