@@ -33,6 +33,7 @@ export enum AccessControlAction {
   OrgsDelete = 'orgs:delete',
   OrgUsersRead = 'org.users:read',
   OrgUsersAdd = 'org.users:add',
+  OrgUsersInvite = 'org.users:invite',
   OrgUsersRemove = 'org.users:remove',
   OrgUsersRoleUpdate = 'org.users.role:update',
 

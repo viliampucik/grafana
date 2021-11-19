@@ -255,6 +255,7 @@ const (
 	// Org actions
 	ActionOrgUsersRead       = "org.users:read"
 	ActionOrgUsersAdd        = "org.users:add"
+	ActionOrgUserInvite      = "org.users:invite"
 	ActionOrgUsersRemove     = "org.users:remove"
 	ActionOrgUsersRoleUpdate = "org.users.role:update"
 
