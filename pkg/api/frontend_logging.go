@@ -8,11 +8,13 @@ import (
 	"github.com/grafana/grafana/pkg/models"
 )
 
-var frontendLogger = log.New("frontend")
+var frontendLogger log.MultiLoggers
 
 type frontendLogMessageHandler func(c *models.ReqContext, event frontendlogging.FrontendSentryEvent) response.Response
 
 func NewFrontendLogMessageHandler(store *frontendlogging.SourceMapStore) frontendLogMessageHandler {
+	frontendLogger = log.New("frontend")
+
 	return func(c *models.ReqContext, event frontendlogging.FrontendSentryEvent) response.Response {
 		var msg = "unknown"
 

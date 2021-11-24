@@ -44,11 +44,6 @@ func Test_syncOrgRoles_doesNotBreakWhenTryingToRemoveLastOrgAdmin(t *testing.T) 
 }
 
 func Test_syncOrgRoles_whenTryingToRemoveLastOrgLogsError(t *testing.T) {
-	// logs := []string{}
-	// logger.SetHandler(log.FuncHandler(func(r *log.Record) error {
-	// 	logs = append(logs, r.Msg)
-	// 	return nil
-	// }))
 	buf := &bytes.Buffer{}
 	logger.AddLogger(log.NewLogfmtLogger(buf), "info", map[string]level.Option{})
 
@@ -60,7 +55,6 @@ func Test_syncOrgRoles_whenTryingToRemoveLastOrgLogsError(t *testing.T) {
 	defer bus.ClearBusHandlers()
 	bus.AddHandler("test", func(q *models.GetUserOrgListQuery) error {
 		q.Result = createUserOrgDTO()
-
 		return nil
 	})
 
@@ -77,7 +71,7 @@ func Test_syncOrgRoles_whenTryingToRemoveLastOrgLogsError(t *testing.T) {
 
 	err := syncOrgRoles(&user, &externalUser)
 	require.NoError(t, err)
-	assert.Contains(t, buf, models.ErrLastOrgAdmin.Error())
+	assert.Contains(t, buf.String(), models.ErrLastOrgAdmin.Error())
 }
 
 type authInfoServiceMock struct {
