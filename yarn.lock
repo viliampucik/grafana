@@ -4436,7 +4436,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lingui/core@npm:^3.12.1":
+"@lingui/core@npm:3.12.1, @lingui/core@npm:^3.12.1":
   version: 3.12.1
   resolution: "@lingui/core@npm:3.12.1"
   dependencies:
@@ -4460,7 +4460,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@lingui/react@npm:^3.12.1":
+"@lingui/react@npm:3.12.1":
   version: 3.12.1
   resolution: "@lingui/react@npm:3.12.1"
   dependencies:
@@ -18260,9 +18260,9 @@ __metadata:
     "@jaegertracing/jaeger-ui-components": "workspace:*"
     "@kusto/monaco-kusto": 4.0.6
     "@lingui/cli": ^3.12.1
-    "@lingui/core": ^3.12.1
+    "@lingui/core": 3.12.1
     "@lingui/macro": ^3.12.1
-    "@lingui/react": ^3.12.1
+    "@lingui/react": 3.12.1
     "@microsoft/api-extractor": 7.18.16
     "@opentelemetry/api": 1.0.2
     "@opentelemetry/exporter-collector": 0.23.0
