@@ -413,7 +413,7 @@ export const runQueries = (
         )
         .subscribe(
           (data) => {
-            if (data.state !== LoadingState.Loading && !data.error && !querySaved) {
+            if (!querySaved) {
               // Side-effect: Saving history in localstorage
               const nextHistory = updateHistory(history, datasourceId, queries);
               const { richHistory: nextRichHistory, localStorageFull, limitExceeded } = addToRichHistory(
