@@ -413,6 +413,7 @@ export const runQueries = (
         )
         .subscribe(
           (data) => {
+            // NOTE: we should move the URL and history updating code to the place where the query is started
             if (!querySaved) {
               // Side-effect: Saving history in localstorage
               const nextHistory = updateHistory(history, datasourceId, queries);
